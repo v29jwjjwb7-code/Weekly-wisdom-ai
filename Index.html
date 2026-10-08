@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#001B44">
+<title>Weekly Wisdom AI Coach</title>
+<style>
+:root{
+  --navy:#001B44;
+  --navy2:#133C7A;
+  --blue:#2D6CDF;
+  --blue2:#1C4F9C;
+  --white:#FFFFFF;
+  --soft:#F4F7FB;
+  --glass:rgba(255,255,255,.15);
+  --glass-strong:rgba(255,255,255,.22);
+  --border:rgba(255,255,255,.24);
+  --text-soft:rgba(255,255,255,.78);
+  --success:#72E6A4;
+  --warning:#FFD166;
+  --danger:#FF7B7B;
+  --shadow:0 18px 45px rgba(0,15,45,.28);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  color:var(--white);
+  background:
+    radial-gradient(circle at 90% 0%,rgba(45,108,223,.44),transparent 32%),
+    radial-gradient(circle at 0% 100%,rgba(19,60,122,.65),transparent 38%),
+    linear-gradient(145deg,var(--navy),#071F4A 54%,var(--navy2));
+  padding:16px;
+}
+button,input,textarea{font:inherit}
+button{touch-action:manipulation}
+.container{width:100%;max-width:540px;margin:0 auto;padding-bottom:28px}
+.hero{
+  position:relative;overflow:hidden;
+  padding:24px 20px 22px;
+  border:1px solid var(--border);
+  border-radius:26px;
+  background:linear-gradient(150deg,rgba(255,255,255,.18),rgba(255,255,255,.08));
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:var(--shadow);margin-bottom:14px;
+}
+.hero:after{content:"";position:absolute;width:180px;height:180px;border:28px solid rgba(255,255,255,.06);border-radius:50%;right:-92px;top:-95px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#BFD2F6}
+h1{font-size:30px;line-height:1.08;margin-top:8px;letter-spacing:-.03em}
+.subtitle{margin-top:9px;color:var(--text-soft);font-size:16px;line-height:1.55}
+.hero-pills{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
+.hero-pill{padding:10px 6px;text-align:center;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.11);font-size:11px;color:#E7EEFB}
+.hero-pill strong{display:block;color:white;font-size:17px;margin-bottom:2px}
+.progress-card,.glass{
+  background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid var(--border);border-radius:22px;padding:18px;color:white;margin-bottom:14px;box-shadow:0 10px 25px rgba(0,13,40,.12)
+}
+.progress{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.progress-step{text-align:center;font-size:9px;color:rgba(255,255,255,.52)}
+.progress-step span{display:block;height:5px;border-radius:99px;background:rgba(255,255,255,.14);margin-bottom:6px}
+.progress-step.active{color:white;font-weight:700}.progress-step.active span{background:#72A4FF;box-shadow:0 0 14px rgba(114,164,255,.55)}
+.section-label{font-size:11px;letter-spacing:.14em;font-weight:800;color:#BFD2F6;text-transform:uppercase;margin-bottom:8px}
+.title{font-size:21px;font-weight:800;line-height:1.35}
+.help{font-size:13px;color:var(--text-soft);line-height:1.55;margin-top:6px}
+input,textarea{width:100%;border:1px solid rgba(255,255,255,.2);outline:none;padding:15px;border-radius:14px;margin-top:12px;font-size:16px;color:#102546;background:rgba(255,255,255,.94)}
+textarea{min-height:128px;resize:vertical;line-height:1.5}
+button{width:100%;min-height:54px;padding:14px;border:0;border-radius:15px;font-weight:800;cursor:pointer;margin-top:12px;font-size:16px;transition:.18s transform,.18s opacity,.18s background}
+button:active{transform:scale(.985)}
+.primary{background:white;color:var(--navy);box-shadow:0 10px 20px rgba(0,0,0,.14)}
+.secondary{background:var(--blue);color:white}.secondary:hover{background:#245FC8}
+.ghost{background:rgba(255,255,255,.10);color:white;border:1px solid rgba(255,255,255,.18)}
+.scenario-box{margin-top:12px;padding:18px;border-radius:18px;background:linear-gradient(145deg,rgba(0,16,46,.42),rgba(20,70,140,.25));border:1px solid rgba(255,255,255,.15)}
+.scenario{font-size:21px;font-weight:800;line-height:1.48}
+.challenge-tip{margin-top:12px;padding:12px;border-radius:14px;background:rgba(255,255,255,.09);font-size:13px;line-height:1.5;color:#E7EEFB}
+.timer{font-size:48px;font-weight:900;text-align:center;letter-spacing:.03em;margin-top:6px}
+.timer-caption{text-align:center;font-size:12px;color:var(--text-soft)}
+.mic{height:124px;width:124px;margin:16px auto 8px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;cursor:pointer;background:white;color:var(--navy);box-shadow:0 16px 35px rgba(0,0,0,.22);user-select:none}
+.recording{animation:pulse 1s infinite;background:#FFF0F0;color:#C62828;box-shadow:0 0 0 12px rgba(255,123,123,.12)}
+@keyframes pulse{50%{transform:scale(1.07)}}
+.status{text-align:center;font-weight:700;color:#DCE8FF;min-height:22px;margin-top:4px}
+.hidden{display:none!important}
+.analyzing{text-align:center;padding:8px 0}.spinner{width:52px;height:52px;border-radius:50%;border:5px solid rgba(255,255,255,.15);border-top-color:#72A4FF;margin:8px auto 16px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.analysis-status{font-size:15px;font-weight:700}.analysis-sub{font-size:12px;color:var(--text-soft);margin-top:6px}
+.badge{display:flex;align-items:center;gap:12px;padding:16px;border-radius:18px;background:linear-gradient(140deg,rgba(114,230,164,.2),rgba(45,108,223,.18));border:1px solid rgba(114,230,164,.27);margin-top:12px}
+.badge-icon{font-size:34px}.badge-title{font-size:18px;font-weight:900}.badge-copy{font-size:12px;color:var(--text-soft);margin-top:2px}
+.feedback-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+.feedback{padding:15px;border-radius:16px;background:rgba(255,255,255,.09)}
+.feedback h3{font-size:14px;margin-bottom:8px}.feedback ul{padding-left:19px}.feedback li{font-size:14px;line-height:1.5;margin:5px 0;color:#EEF4FF}
+.completion{text-align:center}.check{width:70px;height:70px;margin:0 auto 12px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:rgba(114,230,164,.18);border:1px solid rgba(114,230,164,.35);font-size:34px}
+.summary{margin-top:14px;text-align:left;border-radius:16px;background:rgba(255,255,255,.08);padding:14px}
+.row{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px}.row:last-child{border-bottom:0}.row span:first-child{color:var(--text-soft)}.row span:last-child{text-align:right;font-weight:700}
+.privacy{display:flex;gap:9px;margin-top:12px;padding:11px;border-radius:14px;background:rgba(255,255,255,.07);font-size:11px;color:#DDE8FA;line-height:1.45}
+.footer{text-align:center;font-size:11px;color:rgba(255,255,255,.54);padding:8px 8px 0}
+@media(min-width:480px){body{padding:24px}.hero{padding:28px}.glass,.progress-card{padding:21px}.feedback-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:360px){h1{font-size:26px}.hero-pills{grid-template-columns:1fr}.progress-step{font-size:8px}.timer{font-size:42px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <div class="eyebrow">ENBD Services</div>
+    <h1>ðŸŽ§ Weekly Wisdom AI Coach</h1>
+    <p class="subtitle">Confidence & Smart Communication<br>Practice. Learn. Improve.</p>
+    <div class="hero-pills">
+      <div class="hero-pill"><strong>ðŸŽ¯</strong>Real Scenarios</div>
+      <div class="hero-pill"><strong>ðŸŽ™ï¸</strong>Voice Practice</div>
+      <div class="hero-pill"><strong>ðŸ§ </strong>Instant Coaching</div>
+    </div>
+  </section>
+
+  <section class="progress-card">
+    <div class="progress">
+      <div class="progress-step active" data-progress="0"><span></span>Welcome</div>
+      <div class="progress-step" data-progress="1"><span></span>Scenario</div>
+      <div class="progress-step" data-progress="2"><span></span>Respond</div>
+      <div class="progress-step" data-progress="3"><span></span>Coach</div>
+      <div class="progress-step" data-progress="4"><span></span>Complete</div>
+    </div>
+  </section>
+
+  <section id="welcomeCard" class="glass">
+    <div class="section-label">Welcome</div>
+    <div class="title">Ready for a 30-second customer challenge?</div>
+    <p class="help">Enter your name, receive a random customer scenario, and respond naturally. Your recording is not stored.</p>
+    <input id="name" autocomplete="name" placeholder="Enter your name">
+    <button class="primary" onclick="beginChallenge()">Start Challenge</button>
+    <div class="privacy"><span>ðŸ›¡ï¸</span><span>Use practice content only. Do not mention real customer names, numbers, accounts, cards, balances, or transactions.</span></div>
+  </section>
+
+  <section id="scenarioCard" class="glass hidden">
+    <div class="section-label">Customer Scenario</div>
+    <div id="scenarioTitle" class="title">Scenario</div>
+    <div class="scenario-box"><div id="scenario" class="scenario"></div></div>
+    <div class="challenge-tip"><strong>Your challenge:</strong> acknowledge the customer, communicate clearly, and keep your response relevant and concise.</div>
+    <button class="secondary" onclick="showRespondScreen()">Iâ€™m Ready</button>
+    <button class="ghost" onclick="pickScenario()">Try Another Scenario</button>
+  </section>
+
+  <section id="respondCard" class="glass hidden">
+    <div class="section-label">Your Response</div>
+    <div id="timer" class="timer">00:30</div>
+    <div class="timer-caption">Maximum practice time</div>
+    <div id="mic" class="mic" role="button" aria-label="Start or stop recording">ðŸŽ¤</div>
+    <div id="recordingStatus" class="status">Tap the microphone to start</div>
+    <button id="recordButton" class="primary" onclick="togglePractice()">Start Speaking</button>
+    <textarea id="transcript" placeholder="Your speech transcript will appear here. You can also type your response."></textarea>
+    <button class="secondary" onclick="prepareCoaching()">Get Coaching Feedback</button>
+  </section>
+
+  <section id="analyzingCard" class="glass hidden">
+    <div class="analyzing">
+      <div class="spinner"></div>
+      <div class="analysis-status" id="analysisStatus">Reviewing communication clarity...</div>
+      <div class="analysis-sub">Building your practice guidance</div>
+    </div>
+  </section>
+
+  <section id="coachCard" class="glass hidden">
+    <div class="section-label">AI Coach Feedback</div>
+    <div class="badge">
+      <div class="badge-icon">ðŸ…</div>
+      <div><div id="badge" class="badge-title">Communication Explorer</div><div class="badge-copy">A learning badge for this practice attempt</div></div>
+    </div>
+    <div class="feedback-grid">
+      <div class="feedback"><h3>âœ… What went well</h3><ul id="strengths"></ul></div>
+      <div class="feedback"><h3>ðŸ’¡ Try next time</h3><ul id="tips"></ul></div>
+    </div>
+    <button class="primary" onclick="completeChallenge()">Complete Challenge</button>
+    <button class="ghost" onclick="retryResponse()">Try Response Again</button>
+  </section>
+
+  <section id="completeCard" class="glass hidden completion">
+    <div class="check">âœ“</div>
+    <div class="section-label">Challenge Complete</div>
+    <div class="title">Thank you for practicing this weekâ€™s Weekly Wisdom.</div>
+    <div class="summary">
+      <div class="row"><span>Name</span><span id="summaryName">-</span></div>
+      <div class="row"><span>Date</span><span id="summaryDate">-</span></div>
+      <div class="row"><span>Scenario</span><span id="summaryScenario">-</span></div>
+      <div class="row"><span>Badge earned</span><span id="summaryBadge">-</span></div>
+    </div>
+    <button class="primary" onclick="emailCompletion()">Email Completion</button>
+    <button class="secondary" onclick="newChallenge()">Try Another Scenario</button>
+  </section>
+
+  <div class="footer">Weekly Wisdom Learning Coach â€¢ ENBD Services</div>
+</div>
+
+<script>
+const scenarios = [
+  {title:"Busy Customer",text:"I'm busy right now. What is this regarding?"},
+  {title:"Not Interested",text:"No thanks, I'm not interested."},
+  {title:"Existing Card",text:"I already have another bank card."},
+  {title:"Send Details",text:"Just send me an email."},
+  {title:"Comparison",text:"What makes your card different?"},
+  {title:"Annual Fee",text:"The annual fee is too high."},
+  {title:"Low Usage",text:"I never use credit cards."},
+  {title:"Call Later",text:"Call me another time."},
+  {title:"Existing Bank",text:"I'm satisfied with my current bank."},
+  {title:"Benefits",text:"What benefits do I actually get?"},
+  {title:"No Time",text:"I don't have time today."},
+  {title:"Switching",text:"Why should I switch?"},
+  {title:"Similar Offers",text:"I already received similar offers."},
+  {title:"Fees",text:"What are the fees?"},
+  {title:"Quick Call",text:"How long will this take?"},
+  {title:"Main Value",text:"Tell me the main benefit."}
+];
+let currentScenario=null;
+let recognition=null;
+let timer=null;
+let seconds=30;
+let isRecording=false;
+let finalBadge="Communication Explorer";
+
+const $=id=>document.getElementById(id);
+function setStep(step){document.querySelectorAll('.progress-step').forEach((el,i)=>el.classList.toggle('active',i<=step));}
+function showOnly(id){['welcomeCard','scenarioCard','respondCard','analyzingCard','coachCard','completeCard'].forEach(x=>$(x).classList.toggle('hidden',x!==id));window.scrollTo({top:0,behavior:'smooth'});}
+function beginChallenge(){if(!$('name').value.trim()){alert('Please enter your name.');return;}pickScenario();setStep(1);showOnly('scenarioCard');}
+function pickScenario(){let next;do{next=scenarios[Math.floor(Math.random()*scenarios.length)];}while(currentScenario&&next.title===currentScenario.title&&scenarios.length>1);currentScenario=next;$('scenarioTitle').innerText=next.title;$('scenario').innerText='â€œ'+next.text+'â€';}
+function showRespondScreen(){resetResponse();setStep(2);showOnly('respondCard');}
+function resetResponse(){stopPractice(false);seconds=30;$('timer').innerText='00:30';$('transcript').value='';$('recordingStatus').innerText='Tap the microphone to start';$('recordButton').innerText='Start Speaking';}
+function togglePractice(){isRecording?stopPractice(true):startPractice();}
+function startPractice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Speech recognition is not supported in this browser. You can type your response instead.');return;}stopPractice(false);seconds=30;$('timer').innerText='00:30';recognition=new SR();recognition.continuous=true;recognition.interimResults=true;recognition.lang='en-US';recognition.onresult=e=>{let text='';for(let i=0;i<e.results.length;i++)text+=e.results[i][0].transcript+' ';$('transcript').value=text.trim();};recognition.onerror=()=>{$('recordingStatus').innerText='Microphone stopped. You can type or retry.';stopPractice(false);};recognition.onend=()=>{if(isRecording)stopPractice(false);};try{recognition.start();}catch(e){return;}isRecording=true;$('mic').classList.add('recording');$('recordingStatus').innerText='Listeningâ€¦ speak naturally';$('recordButton').innerText='Stop Recording';timer=setInterval(()=>{seconds--;seconds=Math.max(seconds,0);$('timer').innerText='00:'+String(seconds).padStart(2,'0');if(seconds<=0)stopPractice(true);},1000);}
+function stopPractice(showStatus=true){clearInterval(timer);timer=null;if(recognition){try{recognition.onend=null;recognition.stop();}catch(e){}recognition=null;}isRecording=false;$('mic').classList.remove('recording');$('recordButton').innerText='Start Speaking';if(showStatus)$('recordingStatus').innerText='Response captured. Review it below.';}
+$('mic').addEventListener('click',togglePractice);
+function prepareCoaching(){stopPractice(false);const txt=$('transcript').value.trim();if(txt.length<15){alert('Please record or type a slightly longer practice response.');return;}setStep(3);showOnly('analyzingCard');const messages=['Reviewing communication clarityâ€¦','Checking customer acknowledgementâ€¦','Looking for concise, relevant languageâ€¦','Building your coaching guidanceâ€¦'];let i=0;$('analysisStatus').innerText=messages[0];const cycle=setInterval(()=>{i++;if(i>=messages.length){clearInterval(cycle);buildFeedback(txt);showOnly('coachCard');return;}$('analysisStatus').innerText=messages[i];},650);}
+function containsAny(text,terms){return terms.some(t=>text.includes(t));}
+function buildFeedback(raw){const text=raw.toLowerCase();const strengths=[];const tips=[];const acknowledged=containsAny(text,['understand','appreciate','absolutely','of course','i hear','i understand']);const value=containsAny(text,['benefit','value','relevant','eligible','offer','save','reward','cashback','advantage']);const concise=raw.length>=35&&raw.length<=220;const professional=containsAny(text,['thank','please','certainly','happy to','may i','permission']);const curiosity=containsAny(text,['may i ask','would you','could i','what matters','relevant to you','brief question']);if(acknowledged)strengths.push('You acknowledged the customer before continuing.');else tips.push('Begin by acknowledging what the customer said.');if(value)strengths.push('You introduced a reason or value for the conversation.');else tips.push('Connect the call to one clear, relevant customer benefit.');if(concise)strengths.push('Your response stayed focused and easy to follow.');else tips.push(raw.length<35?'Add enough context to make the purpose clear.':'Shorten the response and lead with the main point.');if(professional)strengths.push('Your wording included professional and respectful language.');else tips.push('Use a polite transition such as â€œAbsolutely, Iâ€™ll keep it brief.â€');if(curiosity)strengths.push('You used a question or permission-based approach to continue.');else tips.push('Finish with a short permission-based or customer-focused question.');if(strengths.length===0)strengths.push('You completed the practice and created a base to improve from.');if(tips.length===0)tips.push('On your next attempt, vary the wording while keeping the same customer-focused structure.');if(acknowledged&&value&&professional)finalBadge='Smart Communicator';else if(acknowledged&&curiosity)finalBadge='Customer Focus Explorer';else if(professional&&concise)finalBadge='Professional Communicator';else if(value)finalBadge='Value Communicator';else finalBadge='Communication Explorer';$('badge').innerText=finalBadge;$('strengths').innerHTML=strengths.map(x=>'<li>'+x+'</li>').join('');$('tips').innerHTML=tips.map(x=>'<li>'+x+'</li>').join('');}
+function retryResponse(){setStep(2);showOnly('respondCard');$('recordingStatus').innerText='Try again when ready';}
+function completeChallenge(){setStep(4);$('summaryName').innerText=$('name').value.trim();$('summaryDate').innerText=new Date().toLocaleDateString();$('summaryScenario').innerText=currentScenario.title;$('summaryBadge').innerText='ðŸ… '+finalBadge;showOnly('completeCard');}
+function emailCompletion(){const subject=encodeURIComponent('Weekly Wisdom Challenge Completed - '+$('name').value.trim());const body=encodeURIComponent('Weekly Wisdom Completion\n\nName: '+$('name').value.trim()+'\nDate: '+new Date().toLocaleDateString()+'\nScenario: '+currentScenario.title+'\nLearning Badge: '+finalBadge+'\n\nChallenge completed successfully.');window.location.href='mailto:?subject='+subject+'&body='+body;}
+function newChallenge(){pickScenario();resetResponse();finalBadge='Communication Explorer';setStep(1);showOnly('scenarioCard');}
+</script>
+</body>
+</html>
